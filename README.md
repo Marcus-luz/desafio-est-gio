@@ -51,7 +51,6 @@ npm --version
 ```bash
 git clone <url-do-repositorio>
 
-cd banco-agilize
 ```
 
 ---
@@ -304,7 +303,7 @@ Banco-Agilize/
 ├── backend/
 │   ├── main.py
 │   ├── models.py
-│   ├── services.py
+│   ├── database.py
 │   └── requirements.txt
 │
 ├── frontend/

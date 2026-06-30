@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getContas, realizarSaque, realizarTransferencia, getHistorico } from './api';
+import { getContas, realizarSaque, realizarTransferencia, getHistorico } from './Api';
 import './App.css';
 import logoBanco from './assets/logo-banco.png';
 

@@ -1,5 +1,11 @@
 from pydantic import BaseModel, Field
 
+
+# NOTA ARQUITETURAL: 
+# Para fins de simplificação deste desafio, os valores monetários estão tipados como 'float'.
+# Em um ambiente de produção real, utilizaríamos o tipo 'Decimal' (da biblioteca built-in 'decimal') 
+# ou armazenaríamos os valores em centavos (Integer) para evitar problemas de precisão de ponto flutuante.
+
 # ==========================================
 # Requisições (O que o Frontend envia)
 # ==========================================

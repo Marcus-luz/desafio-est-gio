@@ -1,5 +1,19 @@
 import sys
 import os
+import pytest
+
+from database import contas_db
+
+# NOVA FIXTURE: Roda automaticamente antes de cada teste para limpar a sujeira
+@pytest.fixture(autouse=True)
+def reset_database():
+    contas_db.clear()
+    contas_db.update({
+        "1001": {"id": "1001", "tipo": "corrente", "saldo": 1000.00},
+        "1002": {"id": "1002", "tipo": "poupanca", "saldo": 1000.00},
+        "1003": {"id": "1003", "tipo": "corrente", "saldo": 100.00}
+    })
+
 
 # Aponta o caminho absoluto para a pasta 'backend' para importar o código fonte
 caminho_backend = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'backend'))

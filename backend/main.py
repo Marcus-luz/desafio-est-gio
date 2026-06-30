@@ -5,11 +5,13 @@ from datetime import datetime
 from models import SaqueRequest, TransferenciaRequest
 from database import contas_db, historico_db
 
+from models import SaqueRequest, TransferenciaRequest, ContaResponse
+
 app = FastAPI(title="API Banco - Desafio Agilize")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173"], # Restringindo apenas para o nosso frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -35,7 +37,7 @@ def registrar_transacao(tipo: str, detalhes: str):
 # Rotas (Endpoints)
 # ==========================================
 
-@app.get("/contas")
+@app.get("/contas", response_model=list[ContaResponse])
 def listar_contas():
     return list(contas_db.values())
 
