@@ -2,28 +2,52 @@ import subprocess
 import os
 import sys
 import time
-import webbrowser  # <-- NOVO IMPORT: Biblioteca nativa para abrir o navegador
+import webbrowser
 
-print("Iniciando o Banco Agilize (Fullstack)...")
+print("🚀 Iniciando o ecossistema do Banco Agilize...")
 
 is_windows = os.name == 'nt'
-
-# Pega o caminho absoluto (completo) da pasta onde este script está rodando
 base_dir = os.path.abspath(os.path.dirname(__file__))
 backend_dir = os.path.join(base_dir, "backend")
+frontend_dir = os.path.join(base_dir, "frontend")
 
-# Constrói o caminho completo até o python.exe (ex: C:\...\backend\venv\Scripts\python.exe)
+# Caminhos do ambiente virtual
+venv_dir = os.path.join(backend_dir, "venv")
+
 if is_windows:
-    python_exec = os.path.join(backend_dir, "venv", "Scripts", "python.exe")
+    python_exec = os.path.join(venv_dir, "Scripts", "python.exe")
+    pip_exec = os.path.join(venv_dir, "Scripts", "pip.exe")
 else:
-    python_exec = os.path.join(backend_dir, "venv", "bin", "python")
+    python_exec = os.path.join(venv_dir, "bin", "python")
+    pip_exec = os.path.join(venv_dir, "bin", "pip")
+
+# ==========================================
+# 1. SETUP AUTOMÁTICO (Máquina Limpa)
+# ==========================================
+
+# Instala o backend se o venv não existir
+if not os.path.exists(venv_dir):
+    print("📦 Ambiente virtual não encontrado. Criando 'venv' no backend...")
+    subprocess.run([sys.executable, "-m", "venv", "venv"], cwd=backend_dir)
+    
+    print("📥 Instalando dependências do Python (FastAPI, Uvicorn, etc)...")
+    subprocess.run([pip_exec, "install", "-r", "requirements.txt"], cwd=backend_dir)
+
+# Instala o frontend se o node_modules não existir
+node_modules_dir = os.path.join(frontend_dir, "node_modules")
+if not os.path.exists(node_modules_dir):
+    print("📦 Dependências do frontend não encontradas. Executando 'npm install'...")
+    subprocess.run("npm install", shell=True, cwd=frontend_dir)
+
+# ==========================================
+# 2. INICIALIZAÇÃO DOS SERVIDORES
+# ==========================================
 
 backend_process = None
 frontend_process = None
 
 try:
-    print("Subindo o Backend (FastAPI)...")
-    # Passamos o caminho absoluto do python para não ter erro de pasta
+    print("⏳ Subindo o Backend (FastAPI)...")
     backend_process = subprocess.Popen(
         [python_exec, "-m", "uvicorn", "main:app", "--reload", "--port", "8000"], 
         cwd=backend_dir
@@ -31,31 +55,28 @@ try:
     
     time.sleep(2) 
     
-    print("Subindo o Frontend (React/Vite)...")
+    print("⏳ Subindo o Frontend (React/Vite)...")
     frontend_process = subprocess.Popen(
         "npm run dev", 
         shell=True, 
-        cwd=os.path.join(base_dir, "frontend")
+        cwd=frontend_dir
     )
     
-    # ==========================================
-    # MÁGICA: ABRIR O NAVEGADOR AUTOMATICAMENTE
-    # ==========================================
-    time.sleep(2.5) # Dá 2 segundos e meio para o Vite estar 100% no ar
-    print("Abrindo o navegador...")
+    time.sleep(3)
+    print("🌐 Abrindo o navegador...")
     webbrowser.open("http://localhost:5173")
     
-    print("\nServidores no ar! A aplicação deve estar aberta no seu navegador.")
-    print("Pressione CTRL+C aqui neste terminal para desligar tudo de uma vez.\n")
+    print("\n✅ Servidores no ar! A aplicação está rodando perfeitamente.")
+    print("👉 Pressione CTRL+C aqui neste terminal para desligar tudo de uma vez.\n")
     
     backend_process.wait()
     frontend_process.wait()
 
 except KeyboardInterrupt:
-    print("\nRecebido comando de parada (CTRL+C). Desligando servidores...")
+    print("\n🛑 Recebido comando de parada (CTRL+C). Desligando servidores...")
     if backend_process:
         backend_process.terminate()
     if frontend_process:
         frontend_process.terminate()
-    print("Encerrado com sucesso. Até logo!")
+    print("👋 Encerrado com sucesso. Até logo!")
     sys.exit(0)

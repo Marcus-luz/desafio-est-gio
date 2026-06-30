@@ -1,33 +1,65 @@
 # Minha Solução — Banco
 
-> Substitua o conteúdo entre colchetes pelas informações da sua solução.
-> Estas informações (aqui ou no README do seu fork) são **obrigatórias**.
-
 ## Stack
-- **Backend:** [linguagem e versão — ex.: Node.js 20 / Python 3.11 / Go 1.22] (deve estar no pool aceito)
-- **Frontend:** [ex.: HTML/CSS/JS puro / React / Vue]
+
+* **Backend:** Python 3.13 (FastAPI/Uvicorn)
+* **Frontend:** React 19 + Vite + JavaScript
 
 ## Pré-requisitos / dependências
-- [o que precisa estar instalado e como instalar — ex.: `npm install`, `pip install -r requirements.txt`]
+
+* Python 3.10 ou superior
+* Node.js 18 ou superior
+* Backend: `pip install -r requirements.txt`
+* Frontend: `npm install`
 
 ## Como executar
 
 ### Backend (API)
+
 ```bash
-# [comando(s) para subir o backend]
-# ex.: npm run start  →  API em http://localhost:3000
+cd backend
+
+# Ativar ambiente virtual
+
+# Windows
+.\venv\Scripts\activate
+
+# Linux/Mac
+source venv/bin/activate
+
+uvicorn main:app --reload --port 8000
+
+# API disponível em http://localhost:8000
 ```
 
 ### Frontend
+
 ```bash
-# [comando(s) para subir o frontend]
-# ex.: abrir index.html  /  npm run dev  →  http://localhost:5173
+cd frontend
+
+npm install
+npm run dev
+
+# Aplicação disponível em http://localhost:5173
 ```
 
 ## Exemplo de uso
+
 ```
-[descreva um fluxo: ex. fazer um saque na tela e o resultado retornado pela API]
+1. Acesse a aplicação pelo navegador.
+2. Selecione uma conta (Corrente ou Poupança).
+3. Informe um valor para saque ou transferência.
+4. Execute a operação.
+5. A API aplica as regras de negócio da conta selecionada e retorna o saldo atualizado.
+6. O histórico de transações é atualizado após cada operação.
 ```
 
 ## Observações (opcional)
-- [decisões de modelagem, itens de bônus implementados, limitações conhecidas, etc.]
+
+* Implementada a funcionalidade de transferência entre contas (item bônus).
+* Implementado histórico de transações.
+* Testes unitários utilizando Pytest.
+* Testes End-to-End utilizando Cypress.
+* Script `run.py` para inicialização automática do Backend e Frontend.
+* Conta Corrente: tarifa de R$ 1,00 por operação e cheque especial até R$ -500,00.
+* Conta Poupança: sem tarifa e sem saldo negativo.
