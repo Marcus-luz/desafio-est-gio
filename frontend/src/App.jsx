@@ -50,7 +50,7 @@ function App() {
     try {
       const res = await realizarSaque(saqueConta, saqueValor);
       mostrarMensagem(res.mensagem, 'sucesso');
-      setSaqueValor(''); 
+      setSaqueValor('');
       carregarDados();
     } catch (error) {
       mostrarMensagem(error.message, 'erro');
@@ -82,11 +82,11 @@ function App() {
         <div className="login-card">
           {/* Substituímos o H2 simples pela logo do banco */}
           <img src={logoBanco} alt="Logotipo Banco Agilize" className="login-logo" />
-          
+
           <form onSubmit={handleEntrar}>
-            <input 
-              type="text" 
-              placeholder="Digite seu nome" 
+            <input
+              type="text"
+              placeholder="Digite seu nome"
               value={inputNome}
               onChange={(e) => setInputNome(e.target.value)}
               required
@@ -115,14 +115,22 @@ function App() {
 
       <section className="cards-container">
         {contas.map(conta => (
-          <div className="bank-card" key={conta.id}>
-            <h3>Conta {conta.id}</h3>
+          <div className={`bank-card ${conta.tipo}`} key={conta.id}>
+            {/* TÍTULO MAIOR com o Tipo da Conta */}
+            <h3>Conta {conta.tipo === 'corrente' ? 'Corrente' : 'Poupança'}</h3>
+            {/* SUBTÍTULO MENOR com o ID */}
+            <div className="account-number">Nº {conta.id}</div>
+
             <div className="balance">
               R$ {conta.saldo.toFixed(2)}
             </div>
-            <div className="type">
-              {conta.tipo === 'corrente' ? 'Corrente' : 'Poupança'}
-            </div>
+
+            {/* REGRA R1 VISÍVEL: Mostra o limite só se for Corrente */}
+            {conta.tipo === 'corrente' && (
+              <div className="overdraft">
+                (+ até R$ 500.00 de limite)
+              </div>
+            )}
           </div>
         ))}
       </section>
@@ -134,7 +142,11 @@ function App() {
             <div className="input-group">
               <select value={saqueConta} onChange={(e) => setSaqueConta(e.target.value)} required>
                 <option value="">Selecione a conta...</option>
-                {contas.map(c => <option key={c.id} value={c.id}>Conta {c.id} - R$ {c.saldo}</option>)}
+                {contas.map(c => (
+                  <option key={c.id} value={c.id}>
+                    Nº {c.id} - {c.tipo === 'corrente' ? 'Corrente' : 'Poupança'} - R$ {c.saldo.toFixed(2)}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="input-group">
@@ -151,13 +163,21 @@ function App() {
             <div className="input-group">
               <select value={transfOrigem} onChange={(e) => setTransfOrigem(e.target.value)} required>
                 <option value="">De (Origem)...</option>
-                {contas.map(c => <option key={c.id} value={c.id}>Conta {c.id} - R$ {c.saldo}</option>)}
+                {contas.map(c => (
+                  <option key={c.id} value={c.id}>
+                    Nº {c.id} - {c.tipo === 'corrente' ? 'Corrente' : 'Poupança'} - R$ {c.saldo.toFixed(2)}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="input-group">
               <select value={transfDestino} onChange={(e) => setTransfDestino(e.target.value)} required>
                 <option value="">Para (Destino)...</option>
-                {contas.map(c => <option key={c.id} value={c.id}>Conta {c.id}</option>)}
+                {contas.map(c => (
+                  <option key={c.id} value={c.id}>
+                    Nº {c.id} - {c.tipo === 'corrente' ? 'Corrente' : 'Poupança'}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="input-group">
