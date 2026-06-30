@@ -1,184 +1,259 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
 }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+/* Garante que o fundo ocupe 100% da tela sempre */
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f4f7fa;
+  color: #333;
 }
 
-#center {
+/* =========================================
+   TELA DE LOGIN (Agora 100% da tela)
+   ========================================= */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #2E5BFF;
+  padding: 20px;
+}
+
+.login-card {
+  background-color: white;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.login-card h2 {
+  color: #2E5BFF;
+  margin-bottom: 30px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.login-card form {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  gap: 20px;
 }
 
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+/* Estilo para a Logo do Login */
+.login-logo {
+  width: 200px; /* Tamanho ideal para não ficar nem muito grande, nem pequena */
+  height: auto;
+  margin-bottom: 20px; /* Dá o mesmo respiro que o texto antigo dava */
+  object-fit: contain;
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+.login-card input {
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
+.login-card input:focus {
+  border-color: #FF7E5F;
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
+/* =========================================
+   TELA DO APP (DASHBOARD RESPONSIVO)
+   ========================================= */
+.app-container {
+  max-width: 1100px; /* Expandimos de 414px para 1100px para usar a tela do PC! */
+  margin: 0 auto;
+  background-color: #ffffff;
+  min-height: 100vh;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
   position: relative;
+  padding-bottom: 40px;
+}
+
+/* Cabeçalho mais elegante no PC */
+.header-bg {
+  background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+  padding: 50px 40px 90px 40px;
+  color: white;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.header-bg h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+/* Cartões das contas: Lado a Lado no PC */
+.cards-container {
+  margin-top: -40px;
+  padding: 0 40px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /* A mágica acontece aqui: quebra a linha se não couber */
+  justify-content: center;
+}
+
+.bank-card {
+  background: linear-gradient(135deg, #4A00E0 0%, #8E2DE2 100%);
+  flex: 1; /* Cresce igualmente */
+  min-width: 250px;
+  max-width: 320px; /* Impede que fique esticado demais num PC gigante */
+  border-radius: 16px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 10px 20px rgba(74, 0, 224, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.bank-card::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.bank-card h3 { font-size: 14px; font-weight: 400; margin-bottom: 15px; opacity: 0.9; }
+.bank-card .balance { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+.bank-card .type { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+
+/* Formulários de Ação: Lado a Lado no PC */
+.actions-section {
+  padding: 30px 40px;
+  display: flex;
+  flex-wrap: wrap; /* Coloca Saque e Transf. lado a lado no desktop */
+  gap: 30px;
+  justify-content: space-between;
+}
+
+.action-card {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 25px;
+  flex: 1;
+  min-width: 300px; /* Garante que quebre pro celular */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.action-card h2 { font-size: 18px; margin-bottom: 20px; color: #2c3e50; }
+
+.input-group { margin-bottom: 15px; }
+
+.input-group select, .input-group input {
   width: 100%;
+  padding: 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #fafafa;
+  outline: none;
+  transition: border-color 0.3s;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+.input-group select:focus, .input-group input:focus { border-color: #8E2DE2; }
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+/* Botões */
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  background-color: #FF7E5F;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.btn-primary:active { transform: scale(0.98); }
+.btn-secondary { background-color: #4A00E0; box-shadow: 0 4px 15px rgba(74, 0, 224, 0.4); }
+
+/* Histórico de Transações */
+.historico-section {
+  padding: 0 40px;
+}
+
+.historico-section h2 { font-size: 18px; color: #2c3e50; margin-bottom: 15px; }
+
+.historico-list {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  padding: 15px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.historico-item {
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between; /* Afasta os itens nos cantos */
+  align-items: center;
+}
+
+.historico-item:last-child { border-bottom: none; }
+
+.hist-data { font-size: 12px; color: #888; min-width: 140px; }
+.hist-tipo { font-weight: 600; font-size: 14px; color: #4A00E0; margin-right: 15px; }
+.hist-detalhes { font-size: 14px; color: #444; flex: 1; text-align: right; }
+
+/* =========================================
+   ALERTAS (Estilo Toast Flutuante)
+   ========================================= */
+.alert { 
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 15px 30px; 
+  border-radius: 10px; 
+  text-align: center; 
+  font-weight: 600; 
+  font-size: 14px; 
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { top: -50px; opacity: 0; }
+  to { top: 30px; opacity: 1; }
+}
+
+.alert.sucesso { background-color: #e6ffe6; color: #006600; border: 1px solid #ccffcc; }
+.alert.erro { background-color: #ffe6e6; color: #cc0000; border: 1px solid #ffcccc; }
+
+/* Responsividade Extra para Celular */
+@media (max-width: 600px) {
+  .header-bg { padding: 40px 20px 80px 20px; }
+  .cards-container, .actions-section, .historico-section, .alert { padding-left: 20px; padding-right: 20px; }
+  .historico-item { flex-direction: column; align-items: flex-start; gap: 5px; }
+  .hist-detalhes { text-align: left; }
 }

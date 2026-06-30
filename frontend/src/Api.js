@@ -45,3 +45,8 @@ export const realizarTransferencia = async (conta_origem, conta_destino, valor) 
 
     return response.json();
 };
+
+export const getHistorico = async () => {
+    const response = await fetch(`${API_URL}/historico`);
+    return response.json();
+};
